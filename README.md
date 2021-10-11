@@ -1,1 +1,1 @@
-# TelegramReferralBot
+# Telegram Referral Bot
