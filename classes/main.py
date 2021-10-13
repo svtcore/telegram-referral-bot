@@ -25,10 +25,10 @@ class Main(Proxies, Tokens):
 
     def __init__(self, target_name, count, delay_min, delay_max, refer) -> None:
         self.target_name = target_name
-        self.count = count
+        self.count = int(count)
         self.refer = refer
-        self.delay_min = delay_min
-        self.delay_max = delay_max
+        self.delay_min = int(delay_min)
+        self.delay_max = int(delay_max)
 
     def start(self):
         self.start_target_bot()
@@ -38,7 +38,7 @@ class Main(Proxies, Tokens):
             counter = 0
             proxies = super().load_proxy_list()
             tokens = super().load_token_list()
-            if (len(tokens) >= self.count):
+            if (len(tokens) >= int(self.count)):
                 for i in range(0, self.count):
                     token = tokens[i].split(":")
                     if len(proxies) > 0 and proxies[i] != None:
