@@ -47,7 +47,7 @@ If you don't have session files in folder **sessions** you must set params AUTH=
 ```
 python bot.py
 ```
-### 5. After run script you should autorize on each account then you will get session files into folder sessions and bot starts adding with your referal code
+### 5. After run script you should autorize on each account then you will get session files into folder sessions and bot starts add with your referal code
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
