@@ -54,3 +54,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 [GPL-3.0](https://github.com/svtcore/telegram-referral-bot/blob/main/LICENSE)
+
+## Involved libraries
+* [Pyrogram](https://github.com/pyrogram/pyrogram)
+* [python-dotenv](https://github.com/theskumar/python-dotenv)
