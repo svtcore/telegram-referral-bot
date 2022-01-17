@@ -53,7 +53,7 @@ python bot.py
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
-[GPL-3.0](https://github.com/svtcore/telegram-referral-bot/blob/main/LICENSE)
+[MIT](https://github.com/svtcore/telegram-referral-bot/blob/main/LICENSE)
 
 ## Involved libraries
 * [Pyrogram](https://github.com/pyrogram/pyrogram)
