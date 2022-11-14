@@ -14,9 +14,9 @@ Description for fileds
 
 **BOT_NAME** - public name of bot without @ symbol (example_random_bot)
 
-**COUNT** - amount of account which will be used, integer value
+**COUNT** - quantity of account which will be used
 
-**REFER_ID** - your referal ID which you got from bot (t.me/example_random_bot?start=12345 , set only 12345)
+**REFER_ID** - your referal ID which you got from bot (t.me/example_random_bot?start=12345 , set ONLY 12345)
 
 **DELAY_MIN** - minimum delay in seconds between working each account
 
@@ -29,6 +29,8 @@ Description for fileds
 ### 2. Put tokens into file tokens.txt in format
 ```
 session_name:API_ID:API_HASH
+#example
+my_session_1:9863729:dc5795b76bdc05e1e6c653742c5ba530
 ```
 (How get API_ID and API_HASH follow https://my.telegram.org autorize, create application and you will get credentials)
 
