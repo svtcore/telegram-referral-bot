@@ -60,3 +60,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## Involved libraries
 * [Pyrogram](https://github.com/pyrogram/pyrogram)
 * [python-dotenv](https://github.com/theskumar/python-dotenv)
+
+## Responsibility
+All materials are provided for educational purposes only. The author does not bear the responsibility of the consequences of use by other users
