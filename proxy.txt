@@ -1,0 +1,3 @@
+NO PROXY (leave file empty)
+IP:PORT
+IP:PORT:LOGIN:PASSWORD

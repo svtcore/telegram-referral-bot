@@ -1,0 +1,3 @@
+session_name:API_ID:API_HASH
+#example
+my_session_1:23691433:de32b5e0e668d6bd80870116dbf769c5
