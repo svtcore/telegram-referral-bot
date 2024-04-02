@@ -31,17 +31,17 @@ class Auth (Tokens, Proxies):
             self.app.stop()
         print("Sessions have been checked")
 
-    def connect(self, name, api_id, api_hash, ip, port, username, password):
+    def connect(self, session_name, api_id, api_hash, ip, port, username, password):
         try:
             #proxy with authentication
             if ip != None and port != None and username != None and password != None:
-                self.app = Client(session_name="./sessions/" + name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
+                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
             #public proxy
             elif ip != None and port != None:
-                self.app = Client(session_name="./sessions/" + name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port)))
+                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port)))
             #without authentication
             else:
-                self.app = Client(session_name="./sessions/" + name, api_id=api_id, api_hash=api_hash)
+                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash)
             return 1
         except NameError:
             return 0
