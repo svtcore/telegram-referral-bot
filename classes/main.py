@@ -21,14 +21,18 @@ class Main(Proxies, Tokens):
     #time in seconds from/ to do delay between actiion 
     delay_min = None
     delay_max = None
+    join_channel = None
+    channel_name = None
 
 
-    def __init__(self, target_name, count, delay_min, delay_max, refer) -> None:
+    def __init__(self, target_name, count, join_channel, channel_name, delay_min, delay_max, refer) -> None:
         self.target_name = target_name
         self.count = int(count)
         self.refer = refer
         self.delay_min = int(delay_min)
         self.delay_max = int(delay_max)
+        self.join_channel = join_channel
+        self.channel_name = channel_name
 
     def start(self):
         self.start_target_bot()
@@ -57,6 +61,10 @@ class Main(Proxies, Tokens):
                         else:
                             continue
                     self.app.connect()
+                    #check if join to channel function enabled then process it
+                    if (self.join_channel != "0" and self.channel_name != None):
+                        if (self.join_to_channel()):
+                            print("[Session: " + token[0] + "] has been joined to channel @" + str(self.channel_name))
                     if (self.start_bot()):
                         print("[Session: " + token[0] + "] has been sent start command")
                         counter = counter + 1
@@ -87,6 +95,20 @@ class Main(Proxies, Tokens):
                 self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash)
             return 1
         except NameError:
+            return 0
+
+    def join_to_channel(self):
+        try:
+            target_channel = self.app.resolve_peer(self.channel_name)
+            join_result = self.app.invoke(
+                    functions.channels.JoinChannel(
+                    channel=target_channel)
+                )
+            if (join_result.chats[0].username == self.channel_name):
+                return 1
+            else:
+                return 0
+        except(NameError):
             return 0
 
     def start_bot(self):

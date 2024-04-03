@@ -10,11 +10,13 @@ COUNT = os.getenv('COUNT')
 REFER_ID = os.getenv('REFER_ID')
 DELAY_MIN = os.getenv('DELAY_MIN')
 DELAY_MAX = os.getenv('DELAY_MAX')
+JOIN_CHANNEL = os.getenv('JOIN_CHANNEL')
+CHANNEL_NAME = os.getenv('CHANNEL_NAME')
 AUTH = os.getenv('AUTH')
 RUN = os.getenv('RUN')
 
 
-bot = Main(BOT_NAME, COUNT, DELAY_MIN, DELAY_MAX, REFER_ID)
+bot = Main(BOT_NAME, COUNT, JOIN_CHANNEL, CHANNEL_NAME, DELAY_MIN, DELAY_MAX, REFER_ID)
 auth = Auth()
 if (int(AUTH) != 0):
     auth.start()
