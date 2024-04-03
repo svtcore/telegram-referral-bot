@@ -1,6 +1,8 @@
 # Telegram Referral Bot
 Help to add telegram accounts with referral code to bots which have referral system 
 
+![Screenshoot](https://github.com/svtcore/telegram-referral-bot/blob/main/screenshot.png)
+
 ## Installation
 ```
 pip install -r requirements.txt
