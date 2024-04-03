@@ -18,6 +18,10 @@ Description for fileds
 
 **REFER_ID** - your referal ID which you got from bot (t.me/example_random_bot?start=12345 , set ONLY 12345)
 
+**JOIN_CHANNEL** - enabled/disable function to join channel bot if it's required. Default is 0, to enable set 1 [OPTIONAL]
+
+**CHANNEL_NAME** - username of channel which must to be joined. Works when **JOIN_CHANNEL** is set 1 [OPTIONAL]
+
 **DELAY_MIN** - minimum delay in seconds between working each account
 
 **DELAY_MAX** - maximum delay in seconds between working each account
