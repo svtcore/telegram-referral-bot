@@ -34,6 +34,17 @@ class Main(Proxies, Tokens):
         self.join_channel = join_channel
         self.channel_name = channel_name
 
+
+    def check_sessions_folder(self):
+        try:
+            current_directory = os.getcwd()
+            folder_name = "sessions"
+            sessions_folder_path = os.path.join(current_directory, folder_name)
+            if not os.path.exists(sessions_folder_path):
+                os.makedirs(sessions_folder_path)
+        except(NameError):
+            pass
+
     def start(self):
         self.start_target_bot()
     

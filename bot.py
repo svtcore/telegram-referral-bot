@@ -17,6 +17,7 @@ RUN = os.getenv('RUN')
 
 
 bot = Main(BOT_NAME, COUNT, JOIN_CHANNEL, CHANNEL_NAME, DELAY_MIN, DELAY_MAX, REFER_ID)
+bot.check_sessions_folder()
 auth = Auth()
 if (int(AUTH) != 0):
     auth.start()
