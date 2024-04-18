@@ -7,6 +7,14 @@ class Auth (Tokens, Proxies):
 
     app = None
 
+    def __init__(self, tokens_filename, proxies_filename):
+        super().__init__()
+        if (not proxies_filename):
+            super().check_proxies_file()
+        else:
+            self.proxy_file_name = proxies_filename
+        self.tokens_file_name = tokens_filename
+
     def start(self):
         proxies = super().load_proxy_list()
         tokens = super().load_token_list()

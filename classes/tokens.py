@@ -1,10 +1,11 @@
 class Tokens:
 
+    tokens_file_name = None
     __token_list = []
 
     def load_token_list(self):
         try:
-            with open('./tokens.txt') as f:
+            with open(self.tokens_file_name) as f:
                 self.__token_list = f.readlines()
             self.__trim_values()
             return self.__token_list

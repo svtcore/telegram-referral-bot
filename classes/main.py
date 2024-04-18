@@ -25,7 +25,7 @@ class Main(Proxies, Tokens):
     channel_name = None
 
 
-    def __init__(self, target_name, count, join_channel, channel_name, delay_min, delay_max, refer) -> None:
+    def __init__(self, target_name, count, join_channel, channel_name, delay_min, delay_max, refer, tokens_filename, proxies_filename) -> None:
         self.target_name = target_name
         self.count = int(count)
         self.refer = refer
@@ -33,7 +33,12 @@ class Main(Proxies, Tokens):
         self.delay_max = int(delay_max)
         self.join_channel = join_channel
         self.channel_name = channel_name
-
+        Tokens.tokens_file_name = tokens_filename
+        #if proxies file not defined then create default and use no proxy mode
+        if (not proxies_filename):
+            Proxies.check_proxies_file(self)
+        else:
+            Proxies.proxy_file_name = proxies_filename
 
     def check_sessions_folder(self):
         try:
@@ -73,7 +78,7 @@ class Main(Proxies, Tokens):
                             continue
                     self.app.connect()
                     #check if join to channel function enabled then process it
-                    if (self.join_channel != "0" and self.channel_name != None):
+                    if (self.join_channel != None and self.channel_name != None):
                         if (self.join_to_channel()):
                             print("[Session: " + token[0] + "] has been joined to channel @" + str(self.channel_name))
                     if (self.start_bot()):
