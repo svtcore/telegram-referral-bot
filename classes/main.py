@@ -82,7 +82,7 @@ class Main(Proxies, Tokens):
                         if (self.join_to_channel()):
                             print("[Session: " + token[0] + "] has been joined to channel @" + str(self.channel_name))
                     if (self.start_bot()):
-                        print("[Session: " + token[0] + "] has been sent start command")
+                        print("[Session: " + token[0] + "] has been sent start command to bot @" + str(self.target_name))
                         counter = counter + 1
                     else:
                         print("[Session: " + token[0] + "] has NOT been sent start command")

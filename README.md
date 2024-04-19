@@ -1,64 +1,57 @@
 # Telegram Referral Bot
-Help to add telegram accounts with referral code to bots which have referral system 
+Script to add Telegram accounts as referrals to bots, using your invite code
 
 ![Screenshoot](https://github.com/svtcore/telegram-referral-bot/blob/main/screenshot.png)
 
-## Installation
+### 1. Install necessary libraries
 ```
 pip install -r requirements.txt
 ```
-
-## Setup
-
-### 1. Open .env file and edit values
-
+### 2. Open the .env file and edit the data according to your needs
 Description for fileds
+ - **BOT_NAME** - The public name of the bot without the @ symbol (e.g., example_random_bot)
+ - **COUNT** - The quantity of accounts to be used
+ - **REFER_ID** - Your referral ID obtained from the bot (e.g., t.me/example_random_bot?start=12345, ONLY set 12345)
+ - **CHANNEL_NAME** - The username of the channel that must be joined [OPTIONAL]
+ - **DELAY_MIN** - The minimum delay in seconds between each account's operation
+ - **DELAY_MAX** - The maximum delay in seconds between each account's operation
 
-**BOT_NAME** - public name of bot without @ symbol (example_random_bot)
-
-**COUNT** - quantity of account which will be used
-
-**REFER_ID** - your referal ID which you got from bot (t.me/example_random_bot?start=12345 , set ONLY 12345)
-
-**JOIN_CHANNEL** - enabled/disable function to join channel bot if it's required. Default is 0, to enable set 1 [OPTIONAL]
-
-**CHANNEL_NAME** - username of channel which must to be joined. Works when **JOIN_CHANNEL** is set 1 [OPTIONAL]
-
-**DELAY_MIN** - minimum delay in seconds between working each account
-
-**DELAY_MAX** - maximum delay in seconds between working each account
-
-**AUTH** - set 1 if you don't have sessions files in folder ./sessions otherwise 0
-
-**RUN** - set 1 if you have session files and want start script  
-
-### 2. Put tokens into file tokens.txt in format
+### 3. Retrieve the API_ID and API_HASH for each account
+ - Go to https://my.telegram.org. Log in to the site and create a new application; it will provide you with your credentials
+### 4. Create a file for your credentials, such as accounts.txt, and input the data in the following format:
+Example
 ```
-session_name:API_ID:API_HASH
-#example
-my_session_1:9863729:dc5795b76bdc05e1e6c653742c5ba530
+SESSION_NAME:API_ID:API_HASH
+MY_ACCOUNT_1:11223344:d54d1702ad0f8326224b817c796763c9
 ```
-(How get API_ID and API_HASH follow https://my.telegram.org autorize, create application and you will get credentials)
-
-### 3. Put proxies into file proxy.txt
-There are 3 diffrent format for proxies (ONLY SOCKS5)
+### 5. If you plan to use a proxy, create a file for it in this format:
 ```
 NO PROXY (leave file empty)
 IP:PORT
 IP:PORT:LOGIN:PASSWORD
 ```
-
-If you don't have session files in folder **sessions** you must set params AUTH=1 , RUN=1, otherwise  AUTH=0, RUN=1
-
-### 4. Run file bot.py
-
+### 6. Create session files and authorize on each account
 ```
-python bot.py
+python bot.py --auth --tokens accounts.txt
 ```
-### 5. After run script you should autorize on each account then you will get session files into folder sessions and bot starts add with your referal code
+### 7. After authorization is complete, session files will be generated in the 'sessions' folder
+### 8. Run the script to begin inviting accounts using your referral code
+```
+python bot.py --run --tokens accounts.txt
+```
+or with proxy
+```
+python bot.py --run --tokens accounts.txt --proxies proxies.txt
+```
+If the bot requires joining a channel, you should set up the channel name in the **.env** file and follow the command below
+```
+python bot.py --run --tokens accounts.txt --channel
+```
+Note: All files, such as **accounts.txt** and **proxies.txt**, must be located in the root of the project folder
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. 
+If the script returns an error, open an issue with the provided error message 
 
 ## License
 [MIT](https://github.com/svtcore/telegram-referral-bot/blob/main/LICENSE)
