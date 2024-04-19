@@ -1,5 +1,5 @@
-# Telegram Referral Bot
-Script to add Telegram accounts as referrals to bots, using your invite code
+## Telegram Referral Bot
+### ***Script to add Telegram accounts as referrals to bots, using your invite code***
 
 ![Screenshoot](https://github.com/svtcore/telegram-referral-bot/blob/main/screenshot.png)
 
