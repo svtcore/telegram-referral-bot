@@ -22,12 +22,14 @@ if __name__ == "__main__":
     parser.add_argument("-ch", "--channel", action="store_true", help="Flag to enable join to channel")
     parser.add_argument("-t", "--tokens", type=str, help="Name of the file to load tokens")
     parser.add_argument("-p", "--proxies", type=str, help="Name of the file to load proxies")
+    parser.add_argument("-s", "--strings", help="Enable using string sessions", action='store_true')
     args = parser.parse_args()
     if args.channel:
         JOIN_CHANNEL = True
     if args.tokens:
-        bot = Main(BOT_NAME, COUNT, JOIN_CHANNEL, CHANNEL_NAME, DELAY_MIN, DELAY_MAX, REFER_ID, args.tokens, args.proxies)
-        bot.check_sessions_folder()
+        bot = Main(BOT_NAME, COUNT, JOIN_CHANNEL, CHANNEL_NAME, DELAY_MIN, DELAY_MAX, REFER_ID, args.tokens, args.proxies, args.strings)
+        if not args.strings:
+            bot.check_sessions_folder()
         if args.auth:
             auth = Auth(args.tokens, args.proxies)
             auth.start()

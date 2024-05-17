@@ -6,10 +6,12 @@ from classes.proxies import Proxies
 from classes.tokens import Tokens
 from classes.auth import Auth
 import os.path
+import hashlib
 
 
 class Main(Proxies, Tokens):
 
+    string_sessions = None
     #session field
     app = None
     #name of bot
@@ -25,7 +27,7 @@ class Main(Proxies, Tokens):
     channel_name = None
 
 
-    def __init__(self, target_name, count, join_channel, channel_name, delay_min, delay_max, refer, tokens_filename, proxies_filename) -> None:
+    def __init__(self, target_name, count, join_channel, channel_name, delay_min, delay_max, refer, tokens_filename, proxies_filename, string_sessions) -> None:
         self.target_name = target_name
         self.count = int(count)
         self.refer = refer
@@ -33,6 +35,7 @@ class Main(Proxies, Tokens):
         self.delay_max = int(delay_max)
         self.join_channel = join_channel
         self.channel_name = channel_name
+        self.string_sessions = string_sessions
         Tokens.tokens_file_name = tokens_filename
         #if proxies file not defined then create default and use no proxy mode
         if (not proxies_filename):
@@ -63,29 +66,45 @@ class Main(Proxies, Tokens):
                     token = tokens[i].split(":")
                     if len(proxies) > 0 and proxies[i] != None:
                         proxy = proxies[i].split(":")
-                        if len(proxy) == 4 and len(token) == 3:
-                            self.connect(token[0], token[1], token[2], proxy[0], proxy[1], proxy[2], proxy[3])
-                        elif len(proxy) == 2 and len(token) == 3:
-                            self.connect(token[0], token[1], token[2], proxy[0], proxy[1], None, None)
-                        elif len(proxy) == 0 and len(token) == 3:
-                            self.connect(token[0], token[1], token[2], None, None, None, None)
+                        if len(proxy) == 4:
+                            if len(token) == 3:
+                                self.connect(token[0], token[1], token[2], proxy[0], proxy[1], proxy[2], proxy[3], None)
+                            #case string sessions
+                            elif len(token) == 1:
+                                self.connect(i, None, None, proxy[0], proxy[1], proxy[2], proxy[3], token[0])
+                        elif len(proxy) == 2:
+                            if len(token) == 3:
+                                self.connect(token[0], token[1], token[2], proxy[0], proxy[1], None, None, None)
+                            #case string sessions
+                            elif len(token) == 1:
+                                self.connect(i, None, None, proxy[0], proxy[1], None, None, token[0])
+                        elif len(proxy) == 0:
+                            if len(token) == 3:
+                                self.connect(token[0], token[1], token[2], None, None, None, None, None)
+                            #case string sessions
+                            elif len(token) == 1:
+                                self.connect(i, None, None, None, None, None, None, token[0])
                         else:
                             continue
                     else:
-                        if len(token) == 3:
-                            self.connect(token[0], token[1], token[2], None, None, None, None)
+                        #case string sessions
+                        if len(token) == 1:
+                            self.connect(str(i), None, None, None, None, None, None, token[0])
+                        #for regular session files
+                        elif len(token) == 3:
+                            self.connect(token[0], token[1], token[2], None, None, None, None, None)
                         else:
                             continue
                     self.app.connect()
                     #check if join to channel function enabled then process it
                     if (self.join_channel != None and self.channel_name != None):
                         if (self.join_to_channel()):
-                            print("[Session: " + token[0] + "] has been joined to channel @" + str(self.channel_name))
+                            print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has been joined to channel @" + str(self.channel_name))
                     if (self.start_bot()):
-                        print("[Session: " + token[0] + "] has been sent start command to bot @" + str(self.target_name))
-                        counter = counter + 1
+                        print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has been sent start command to bot @" + str(self.target_name))
+                        counter += 1
                     else:
-                        print("[Session: " + token[0] + "] has NOT been sent start command")
+                        print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has NOT been sent start command")
                     self.app.disconnect()
                     #checking last element to avoid sleep time after proccessing last element
                     if i != self.count-1:
@@ -98,17 +117,26 @@ class Main(Proxies, Tokens):
         except NameError:
             pass
 
-    def connect(self, session_name, api_id, api_hash, ip, port, username, password):
+    def connect(self, session_name, api_id, api_hash, ip, port, username, password, string_session):
         try:
             #proxy with authentication
             if ip != None and port != None and username != None and password != None:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
+                if self.string_sessions:
+                    self.app = Client(name="./sessions/" + hashlib.md5(string_session.encode()).hexdigest(), session_string=string_session, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
+                else:
+                    self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
             #public proxy
             elif ip != None and port != None:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port)))
+                if self.string_sessions:
+                    self.app = Client(name="./sessions/" + hashlib.md5(string_session.encode()).hexdigest(), session_string=string_session, proxy=dict(hostname=ip, port=int(port)))
+                else:
+                    self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port)))
             #without authentication
             else:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash)
+                if self.string_sessions:
+                    self.app = Client(name="./sessions/" + hashlib.md5(string_session.encode()).hexdigest(), session_string=string_session)
+                else:
+                    self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash)
             return 1
         except NameError:
             return 0
