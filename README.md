@@ -15,7 +15,7 @@ Description for fileds
  - **CHANNEL_NAME** - The username of the channel that must be joined [OPTIONAL]
  - **DELAY_MIN** - The minimum delay in seconds between each account's operation
  - **DELAY_MAX** - The maximum delay in seconds between each account's operation
-
+### 2.1 If you use pyrogram string sessions, follow steps: [4](https://github.com/svtcore/telegram-referral-bot/edit/main/README.md#4-create-a-file-for-your-credentials-such-as-accountstxt-and-input-the-data-in-the-following-format) ,[5](https://github.com/svtcore/telegram-referral-bot/edit/main/README.md#5-if-you-plan-to-use-a-proxy-create-a-file-for-it-in-this-format) and [8](https://github.com/svtcore/telegram-referral-bot/edit/main/README.md#8-run-the-script-to-begin-inviting-accounts-using-your-referral-code)
 ### 3. Retrieve the API_ID and API_HASH for each account
  - Go to https://my.telegram.org. Log in to the site and create a new application; it will provide you with your credentials
 ### 4. Create a file for your credentials, such as accounts.txt, and input the data in the following format:
@@ -23,6 +23,12 @@ Example
 ```
 SESSION_NAME:API_ID:API_HASH
 MY_ACCOUNT_1:11223344:d54d1702ad0f8326224b817c796763c9
+```
+Or if you've got pyrogram string sessions, just pop each one on a new line like this:
+```
+Ag1C11H4AJxbIL5Cr4xovee6MlhrE0XYJud9h_w4RbADPko_-BQufNvWzAzci_4_1EEv623CFNTqRhlL_4qnwL_C3SuMRXYgR89LOSjbE8YO8yIiA0Dctyt5BwdinvMFFm6CEqhzhMzFXoqwCjAMCF9BWkUdJ0WqXkUjxkWO68rJXRIDLl2PXqEGOijZRLnVQIf2H8oJAuAe8Wo7nfYFuFQJAJH7CvpFiY2VZWeBVjSrgWspbTY3Kiy5q7EBrkHFeZvF5y5N_fWnkrAAWYmLN2zctOLuRm2SJ2DQ2mzZdYjKs4Dxzu1QeHTnRdnDCgE9SjEp2C3RFioZDy38105ao_da6owAAAAB3o_RZAA
+Ag2C21H4AJxbIL5Cr4xovee6MlhrE0XYJud9h_w4RbADPko_-BQufNvWzAzci_4_1EEv623CFNTqRhlL_4qnwL_C3SuMRXYgR89LOSjbE8YO8yIiA0Dctyt5BwdinvMFFm6CEqhzhMzFXoqwCjAMCF9BWkUdJ0WqXkUjxkWO68rJXRIDLl2PXqEGOijZRLnVQIf2H8oJAuAe8Wo7nfYFuFQJAJH7CvpFiY2VZWeBVjSrgWspbTY3Kiy5q7EBrkHFeZvF5y5N_fWnkrAAWYmLN2zctOLuRm2SJ2DQ2mzZdYjKs4Dxzu1QeHTnRdnDCgE9SjEp2C3RFioZDy38105ao_da6owAAAAB3o_RZAA
+Ag3C31H4AJxbIL5Cr4xovee6MlhrE0XYJud9h_w4RbADPko_-BQufNvWzAzci_4_1EEv623CFNTqRhlL_4qnwL_C3SuMRXYgR89LOSjbE8YO8yIiA0Dctyt5BwdinvMFFm6CEqhzhMzFXoqwCjAMCF9BWkUdJ0WqXkUjxkWO68rJXRIDLl2PXqEGOijZRLnVQIf2H8oJAuAe8Wo7nfYFuFQJAJH7CvpFiY2VZWeBVjSrgWspbTY3Kiy5q7EBrkHFeZvF5y5N_fWnkrAAWYmLN2zctOLuRm2SJ2DQ2mzZdYjKs4Dxzu1QeHTnRdnDCgE9SjEp2C3RFioZDy38105ao_da6owAAAAB3o_RZAA
 ```
 ### 5. If you plan to use a proxy, create a file for it in this format:
 ```
@@ -38,6 +44,10 @@ python bot.py --auth --tokens accounts.txt
 ### 8. Run the script to begin inviting accounts using your referral code
 ```
 python bot.py --run --tokens accounts.txt
+```
+or with string session
+```
+python bot.py --run --strings --tokens accounts.txt
 ```
 or with proxy
 ```
