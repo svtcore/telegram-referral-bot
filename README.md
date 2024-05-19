@@ -15,7 +15,7 @@ Description for fileds
  - **CHANNEL_NAME** - The username of the channel that must be joined [OPTIONAL]
  - **DELAY_MIN** - The minimum delay in seconds between each account's operation
  - **DELAY_MAX** - The maximum delay in seconds between each account's operation
-### 2.1 If you use pyrogram string sessions, follow steps: [4](https://github.com/svtcore/telegram-referral-bot/edit/main/README.md#4-create-a-file-for-your-credentials-such-as-accountstxt-and-input-the-data-in-the-following-format) ,[5](https://github.com/svtcore/telegram-referral-bot/edit/main/README.md#5-if-you-plan-to-use-a-proxy-create-a-file-for-it-in-this-format) and [8](https://github.com/svtcore/telegram-referral-bot/edit/main/README.md#8-run-the-script-to-begin-inviting-accounts-using-your-referral-code)
+### 2.1 If you use pyrogram string sessions, follow steps: [4](https://github.com/svtcore/telegram-referral-bot?tab=readme-ov-file#4-create-a-file-for-your-credentials-such-as-accountstxt-and-input-the-data-in-the-following-format) ,[5](https://github.com/svtcore/telegram-referral-bot?tab=readme-ov-file#5-if-you-plan-to-use-a-proxy-create-a-file-for-it-in-this-format) and [8](https://github.com/svtcore/telegram-referral-bot?tab=readme-ov-file#8-run-the-script-to-begin-inviting-accounts-using-your-referral-code)
 ### 3. Retrieve the API_ID and API_HASH for each account
  - Go to https://my.telegram.org. Log in to the site and create a new application; it will provide you with your credentials
 ### 4. Create a file for your credentials, such as accounts.txt, and input the data in the following format:
