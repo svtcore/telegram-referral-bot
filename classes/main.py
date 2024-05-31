@@ -99,12 +99,12 @@ class Main(Proxies, Tokens):
                     #check if join to channel function enabled then process it
                     if (self.join_channel != None and self.channel_name != None):
                         if (self.join_to_channel()):
-                            print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has been joined to channel @" + str(self.channel_name))
+                            print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has joined the channel @" + str(self.channel_name))
                     if (self.start_bot()):
-                        print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has been sent start command to bot @" + str(self.target_name))
+                        print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has sent start command to the bot @" + str(self.target_name))
                         counter += 1
                     else:
-                        print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has NOT been sent start command")
+                        print("[Session: " + (str(i + 1) if len(token) == 1 else token[0]) + "] has NOT sent start command")
                     self.app.disconnect()
                     #checking last element to avoid sleep time after proccessing last element
                     if i != self.count-1:
