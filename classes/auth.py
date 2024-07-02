@@ -43,10 +43,10 @@ class Auth (Tokens, Proxies):
         try:
             #proxy with authentication
             if ip != None and port != None and username != None and password != None:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
+                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password, scheme=str('socks5')))
             #public proxy
             elif ip != None and port != None:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port)))
+                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), scheme=str('socks5')))
             #without authentication
             else:
                 self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash)

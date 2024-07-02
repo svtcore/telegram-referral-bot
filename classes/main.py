@@ -122,15 +122,15 @@ class Main(Proxies, Tokens):
             #proxy with authentication
             if ip != None and port != None and username != None and password != None:
                 if self.string_sessions:
-                    self.app = Client(name="./sessions/" + hashlib.md5(string_session.encode()).hexdigest(), session_string=string_session, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
+                    self.app = Client(name="./sessions/" + hashlib.md5(string_session.encode()).hexdigest(), session_string=string_session, proxy=dict(hostname=ip, port=int(port), username=username, password=password, scheme=str('socks5')))
                 else:
-                    self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password))
+                    self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password, scheme=str('socks5')))
             #public proxy
             elif ip != None and port != None:
                 if self.string_sessions:
-                    self.app = Client(name="./sessions/" + hashlib.md5(string_session.encode()).hexdigest(), session_string=string_session, proxy=dict(hostname=ip, port=int(port)))
+                    self.app = Client(name="./sessions/" + hashlib.md5(string_session.encode()).hexdigest(), session_string=string_session, proxy=dict(hostname=ip, port=int(port), scheme=str('socks5')))
                 else:
-                    self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port)))
+                    self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), scheme=str('socks5')))
             #without authentication
             else:
                 if self.string_sessions:
