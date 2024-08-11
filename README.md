@@ -1,5 +1,6 @@
 ## Telegram Referral Bot
 ### ***Script to add Telegram accounts as referrals to bots, using your invite code***
+It emulates the **/start** command to the bot with an additional parameter for the referral code.
 
 ![Screenshoot](https://github.com/svtcore/telegram-referral-bot/blob/main/screenshot.png)
 
@@ -15,10 +16,24 @@ Description for fileds
  - **CHANNEL_NAME** - The username of the channel that must be joined [OPTIONAL]
  - **DELAY_MIN** - The minimum delay in seconds between each account's operation
  - **DELAY_MAX** - The maximum delay in seconds between each account's operation
+
+
+Example of **.env** file
+```
+BOT_NAME=my_new_coin_bot
+COUNT=5
+REFER_ID=111222333
+CHANNEL_NAME=my_new_coin_channel
+DELAY_MIN = 10
+DELAY_MAX = 15
+```
 ### 2.1 If you use pyrogram string sessions, follow steps: [4](https://github.com/svtcore/telegram-referral-bot?tab=readme-ov-file#4-create-a-file-for-your-credentials-such-as-accountstxt-and-input-the-data-in-the-following-format) ,[5](https://github.com/svtcore/telegram-referral-bot?tab=readme-ov-file#5-if-you-plan-to-use-a-proxy-create-a-file-for-it-in-this-format) and [8](https://github.com/svtcore/telegram-referral-bot?tab=readme-ov-file#8-run-the-script-to-begin-inviting-accounts-using-your-referral-code)
 ### 3. Retrieve the API_ID and API_HASH for each account
  - Go to https://my.telegram.org. Log in to the site and create a new application; it will provide you with your credentials
 ### 4. Create a file for your credentials, such as accounts.txt, and input the data in the following format:
+
+Note: The amount of tokens must correspond to the amount you have set in the **.env** file.
+
 Example
 ```
 SESSION_NAME:API_ID:API_HASH
