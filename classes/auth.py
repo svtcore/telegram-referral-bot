@@ -1,55 +1,50 @@
-from classes.proxies import Proxies
-from classes.tokens import Tokens
-from pyrogram import Client
-from pyrogram.raw import functions
+from __future__ import annotations
 
-class Auth (Tokens, Proxies):
+import logging
+from pathlib import Path
 
-    app = None
+from classes.client_factory import create_client
+from classes.models import Proxy, Token
 
-    def __init__(self, tokens_filename, proxies_filename):
-        super().__init__()
-        if (not proxies_filename):
-            super().check_proxies_file()
-        else:
-            self.proxy_file_name = proxies_filename
-        self.tokens_file_name = tokens_filename
+logger = logging.getLogger(__name__)
 
-    def start(self):
-        proxies = super().load_proxy_list()
-        tokens = super().load_token_list()
-        for i in range(0, len(tokens)):
-            token = tokens[i].split(":")
-            if len(proxies) > 0 and proxies[i] != None:
-                proxy = proxies[i].split(":")
-                if len(proxy) == 4 and len(token) == 3:
-                    self.connect(token[0], token[1], token[2], proxy[0], proxy[1], proxy[2], proxy[3])
-                elif len(proxy) == 2 and len(token) == 3:
-                    self.connect(token[0], token[1], token[2], proxy[0], proxy[1], None, None)
-                elif len(proxy) == 0 and len(token) == 3:
-                    print(self.connect(token[0], token[1], token[2], None, None, None, None))
-                else:
-                    continue
-            else:
-                if len(token) == 3:
-                    self.connect(token[0], token[1], token[2], None, None, None, None)
-                else:
-                    continue
-            self.app.start()
-            self.app.stop()
-        print("Sessions have been checked")
 
-    def connect(self, session_name, api_id, api_hash, ip, port, username, password):
-        try:
-            #proxy with authentication
-            if ip != None and port != None and username != None and password != None:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), username=username, password=password, scheme=str('socks5')))
-            #public proxy
-            elif ip != None and port != None:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash, proxy=dict(hostname=ip, port=int(port), scheme=str('socks5')))
-            #without authentication
-            else:
-                self.app = Client(name="./sessions/" + session_name, api_id=api_id, api_hash=api_hash)
-            return 1
-        except NameError:
-            return 0
+class Authenticator:
+    """Creates Pyrogram session files by authenticating each account"""
+
+    def __init__(
+        self,
+        tokens_file: Path,
+        proxies_file: Path | None = None,
+        sessions_dir: Path = Path("sessions"),
+    ) -> None:
+        self._tokens_file = tokens_file
+        self._proxies_file = proxies_file
+        self._sessions_dir = sessions_dir
+
+    def run(self) -> None:
+        tokens = Token.load_from_file(self._tokens_file)
+        proxies = self._load_proxies()
+
+        for i, token in enumerate(tokens):
+            if token.is_string_session:
+                logger.info("Skipping string session #%d (no auth needed)", i + 1)
+                continue
+
+            proxy = proxies[i] if i < len(proxies) else None
+            label = token.session_name
+
+            try:
+                client = create_client(token, proxy, self._sessions_dir)
+                client.start()
+                client.stop()
+                logger.info("[%s] Session created successfully", label)
+            except Exception:
+                logger.exception("[%s] Authentication failed", label)
+
+        logger.info("Authentication complete")
+
+    def _load_proxies(self) -> list[Proxy | None]:
+        if self._proxies_file and self._proxies_file.exists():
+            return Proxy.load_from_file(self._proxies_file)
+        return []
