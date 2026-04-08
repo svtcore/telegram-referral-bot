@@ -1,8 +1,11 @@
-sessions/*.session
-classes/__pycache__
+
+sessions/
+__pycache__/
+*.pyc
+*.pyo
+.env
 proxies.txt
 tokens.txt
 credentials.txt
 accounts.txt
 strings.txt
-.env.example
