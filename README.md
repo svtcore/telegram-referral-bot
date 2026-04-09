@@ -34,7 +34,7 @@
 ## Requirements
 
 - Python 3.10+
-- Telegram API credentials (`api_id` and `api_hash`) for each account, obtained from [my.telegram.org](https://my.telegram.org)
+- Telegram API credentials (`api_id` and `api_hash`) for each account, obtained from [my.telegram.org](https://my.telegram.org) or saved pyrogram **.session** files
 
 ---
 
