@@ -18,12 +18,26 @@ from config import Config
 logger = logging.getLogger(__name__)
 
 
+def _asyncio_exception_handler(loop: asyncio.AbstractEventLoop, context: dict) -> None:
+    """Suppress known Pyrogram shutdown noise from asyncio's exception handler."""
+    exc = context.get("exception")
+    msg = context.get("message", "")
+    if isinstance(exc, Exception) and "closed database" in str(exc):
+        return
+    if "Task was destroyed but it is pending" in msg:
+        return
+    loop.default_exception_handler(context)
+
+
 def setup_logging() -> None:
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
+    logging.getLogger("pyrogram").setLevel(logging.WARNING)
+    logging.getLogger("asyncio").setLevel(logging.CRITICAL)
+    asyncio.get_event_loop().set_exception_handler(_asyncio_exception_handler)
 
 
 def build_parser() -> argparse.ArgumentParser:
