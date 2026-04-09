@@ -2,8 +2,6 @@
 
 > Automate referral invitations on Telegram by emulating the `/start` command with your referral code across multiple accounts.
 
-![Screenshot](https://github.com/svtcore/telegram-referral-bot/blob/main/screenshot.png)
-
 ---
 
 ## Table of Contents
