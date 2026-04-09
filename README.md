@@ -2,6 +2,7 @@
 
 > Automate referral invitations on Telegram by emulating the `/start` command with your referral code across multiple accounts.
 
+![Screenshot](https://github.com/svtcore/telegram-referral-bot/blob/main/screenshot.PNG)
 ---
 
 ## Table of Contents
@@ -26,7 +27,7 @@
 - Optional **channel auto-join** before sending the referral command
 - **Proxy support** (anonymous and authenticated)
 - Configurable **random delay** between accounts to avoid rate limits
-- **Interactive mode** — no flags needed, the script prompts for everything
+- **Interactive mode** – no flags needed, the script prompts for everything
 
 ---
 
@@ -59,7 +60,7 @@ cp .env.example .env
 |---|---|---|
 | `BOT_NAME` | Yes | Bot username **without** `@` (e.g. `my_bot`) |
 | `COUNT` | Yes | Number of accounts to use |
-| `REFER_ID` | Yes | Your referral code — from `t.me/my_bot?start=`**`12345`**, enter only `12345` |
+| `REFER_ID` | Yes | Your referral code – from `t.me/my_bot?start=`**`12345`**, enter only `12345` |
 | `DELAY_MIN` | No | Minimum delay in seconds between accounts (default: `10`) |
 | `DELAY_MAX` | No | Maximum delay in seconds between accounts (default: `15`) |
 | `CHANNEL_NAME` | No | Channel username to join before sending `/start` (without `@`) |
@@ -79,9 +80,9 @@ DELAY_MAX=15
 
 ## Preparing Accounts
 
-Create a plain-text file (e.g. `accounts.txt`) - one account per line.
+Create a plain-text file (e.g. `accounts.txt`) – one account per line.
 
-### Option A - Session files (requires authorization step)
+### Option A – Session files (requires authorization step)
 
 Format: `SESSION_NAME:API_ID:API_HASH`
 
@@ -96,7 +97,7 @@ After filling in `accounts.txt`, run the authorization step once to generate ses
 python bot.py --auth -t accounts.txt
 ```
 
-### Option B — Pyrogram string sessions (no authorization step needed)
+### Option B – Pyrogram string sessions (no authorization step needed)
 
 Paste each string session on its own line, no extra formatting required:
 
@@ -111,10 +112,10 @@ AQEAxYzWvU...
 
 ## Proxy Support
 
-Create a plain-text file (e.g. `proxies.txt`) — one proxy per line.
+Create a plain-text file (e.g. `proxies.txt`) – one proxy per line.
 
 ```
-# No proxy - leave the file empty, or omit --proxies flag
+# No proxy – leave the file empty, or omit --proxies flag
 
 # Anonymous proxy
 192.168.1.1:8080
@@ -154,7 +155,7 @@ python bot.py --run -t accounts.txt -p proxies.txt --channel
 
 ### 3. Interactive mode
 
-Prompts for all settings step by step - no flags needed:
+Prompts for all settings step by step – no flags needed:
 
 ```bash
 python bot.py --interactive
